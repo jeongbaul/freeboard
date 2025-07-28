@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자유게시판 글쓰기</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    form p {
+      margin: 15px 0;
+    }
+    label {
+      display: inline-block;
+      width: 80px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .back-link {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>자유게시판 글쓰기</h1>
+
+  <form method="post" action="/pages/board/write_ok.php">
+    <p>
+      <label for="subject">제목</label>
+      <input type="text" id="subject" name="subject" required>
+    </p>
+    <p>
+      <label for="writer">작성자</label>
+      <input type="text" id="writer" name="writer" required>
+    </p>
+    <p>
+      <label for="content">내용</label><br>
+      <textarea id="content" name="content" rows="10" required></textarea>
+    </p>
+    <p style="text-align:center;">
+      <button type="submit">등록</button>
+  </p>
+  </form>
+
+  <a class="back-link" href="/pages/board/list.php">← 목록으로 돌아가기</a>
+</body>
+</html>
