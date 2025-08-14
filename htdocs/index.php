@@ -1,53 +1,48 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>bu 갤러리</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-    }
-    nav {
-      background-color: #333;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-    }
-    .nav-left, .nav-right {
-      display: flex;
-      gap: 15px;
-    }
-    a {
-      color: white;
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-    }
-    a:hover {
-      background-color: #555;
-    }
-  </style>
-</head>
-<body>
+<?php
+$debug = false;
 
-  <nav>
-    <div class="nav-left">
-      <a href="board_list.php">자유게시판</a>
-      <a href="qna_list.php">Q&A</a>
-    </div>
-    <div class="nav-right">
-      <a href="/pages/user/join.php">회원가입</a>
-      <a href="/pages/user/login.php">로그인</a>
-      <a href="/pages/user/list.php">회원 리스트</a>
-    </div>
-  </nav>
+function safeParam($param) {
+    return preg_replace("/[^a-zA-Z0-9_-]/", "", $param);
+}
 
-  <main style="padding: 20px;">
-    <h1>메인 페이지에 오신 걸 환영합니다!</h1>
-    <p>여기서 게시판과 Q&A, 회원 기능을 사용할 수 있어요.</p>
-  </main>
+$context1 = isset($_GET['context1']) ? safeParam($_GET['context1']) : "";
+$context2 = isset($_GET['context2']) ? safeParam($_GET['context2']) : "";
+$action   = isset($_GET['action'])   ? safeParam($_GET['action'])   : "";
 
-</body>
-</html>
+include __DIR__ . "/common/header.php";
+
+if ($debug) {
+    echo "<pre>DEBUG MODE\n";
+    echo "context1 = {$context1}\n";
+    echo "context2 = {$context2}\n";
+    echo "action   = {$action}\n";
+    echo "</pre>";
+}
+
+$basePath = __DIR__ . "/pages";
+
+if ($context1 === "" && $context2 === "" && $action === "") {
+    $pagePath = $basePath . "/main.php";
+} else {
+    $pagePath = $basePath;
+    if ($context1 !== "") $pagePath .= "/" . $context1;
+    if ($context2 !== "") $pagePath .= "/" . $context2;
+    if ($action !== "") {
+        $pagePath .= "/" . $action . ".php";
+    } else {
+        $pagePath .= ".php";
+    }
+}
+
+if ($debug) {
+    echo "<pre>Trying to load: {$pagePath}</pre>";
+}
+
+if (file_exists($pagePath)) {
+    include $pagePath;
+} else {
+    http_response_code(404);
+    include $basePath . "/error.php";
+}
+
+include __DIR__ . "/common/footer.php";
