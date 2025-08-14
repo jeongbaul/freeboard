@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_URI} ^/uploads/ [NC]
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_URI} \.(js|css|png|jpg|jpeg|gif|ico|svg)$ [NC]
+RewriteRule .* - [L]
+
+RewriteRule ^([^/]+)/([^/]+)$ index.php?context1=$1&context2=$2 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)$ index.php?context1=$1&context2=$2&action=$3 [L,QSA]
