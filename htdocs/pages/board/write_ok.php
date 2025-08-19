@@ -1,8 +1,8 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli("localhost", "root", "", "freeboard");
-    if ($conn->connect_error) {
-        die("DB 연결 실패: " . $conn->connect_error);
+    $conn = mysqli_connect("localhost", "root", "", "freeboard");
+    if (!$conn) {
+        die("DB 연결 실패: " . mysqli_connect_error());
     }
 
     $subject = $_POST['subject'] ?? '';
@@ -14,18 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("모든 항목을 입력해주세요.");
     }
 
-    $sql = "INSERT INTO board (subject, writer, content, wdate) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $subject, $writer, $content, $wdate);
+    $subject = mysqli_real_escape_string($conn, $subject);
+    $writer = mysqli_real_escape_string($conn, $writer);
+    $content = mysqli_real_escape_string($conn, $content);
+    $wdate = mysqli_real_escape_string($conn, $wdate);
 
-    if ($stmt->execute()) {
-        echo "<script>alert('글이 등록되었습니다.'); location.href='/pages/board/list.php';</script>";
+    $sql = "INSERT INTO board (subject, writer, content, wdate) VALUES ('$subject', '$writer', '$content', '$wdate')";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>alert('글이 등록되었습니다.'); location.href='/board/list';</script>";
     } else {
-        echo "등록 실패: " . $conn->error;
+        echo "등록 실패: " . mysqli_error($conn);
     }
 
-    $stmt->close();
-    $conn->close();
+    mysqli_close($conn);
     exit;
 }
 ?>
+S
