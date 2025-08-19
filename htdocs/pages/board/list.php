@@ -1,40 +1,40 @@
 <?php
-date_default_timezone_set('Asia/Seoul');  
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=freeboard;charset=utf8", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("DB 연결 실패: " . $e->getMessage());
+date_default_timezone_set('Asia/Seoul');
+
+$conn = mysqli_connect("localhost", "root", "", "freeboard");
+if (!$conn) {
+    die("DB 연결 실패: " . mysqli_connect_error());
 }
 
 $search = $_GET['search'] ?? '';
-$search_param = "%" . $search . "%";
+$search_escaped = mysqli_real_escape_string($conn, $search);
 
 $page = $_GET['page'] ?? 1;
 $page = max(1, (int)$page);
 $limit = 10;
 $offset = ($page - 1) * $limit;
 
-$count_sql = "SELECT COUNT(*) FROM board WHERE subject LIKE :search";
-$count_stmt = $pdo->prepare($count_sql);
-$count_stmt->bindParam(':search', $search_param, PDO::PARAM_STR);
-$count_stmt->execute();
-$total = $count_stmt->fetchColumn();
+$count_sql = "SELECT COUNT(*) AS cnt FROM board WHERE subject LIKE '%$search_escaped%'";
+$count_result = mysqli_query($conn, $count_sql);
+$count_row = mysqli_fetch_assoc($count_result);
+$total = $count_row['cnt'] ?? 0;
 
 $total_pages = ceil($total / $limit);
 
-$sql = "SELECT no, subject, writer, wdate FROM board 
-        WHERE subject LIKE :search 
+$sql = "SELECT no, subject, writer, wdate 
+        FROM board 
+        WHERE subject LIKE '%$search_escaped%' 
         ORDER BY no DESC 
-        LIMIT :limit OFFSET :offset";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':search', $search_param, PDO::PARAM_STR);
-$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-$stmt->execute();
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
+        LIMIT $limit OFFSET $offset";
+$result = mysqli_query($conn, $sql);
 
+$rows = [];
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -93,7 +93,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </form>
 
   <div class="top-buttons" style="max-width:900px;">
-    <button onclick="location.href='/pages/board/write.php'" class="btn">글쓰기</button>
+    <button onclick="location.href='/board/write'" class="btn">글쓰기</button>
   </div>
 
   <table>
@@ -111,12 +111,12 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php foreach ($rows as $row): ?>
           <tr>
             <td><?= $row['no'] ?></td>
-            <td><a href="/pages/board/view.php?no=<?= $row['no'] ?>"><?= htmlspecialchars($row['subject']) ?></a></td>
+            <td><a href="/board/view?no=<?= $row['no'] ?>"><?= htmlspecialchars($row['subject']) ?></a></td>
             <td><?= htmlspecialchars($row['writer']) ?></td>
             <td><?= date("Y-m-d H:i:s", strtotime($row['wdate'])) ?></td>
             <td>
-              <a href="/pages/board/modify.php?no=<?= $row['no'] ?>" class="btn">수정</a>
-              <a href="/pages/board/delete.php?no=<?= $row['no'] ?>" class="btn">삭제</a>
+              <a href="/board/modify?no=<?= $row['no'] ?>" class="btn">수정</a>
+              <a href="/board/delete?no=<?= $row['no'] ?>" class="btn">삭제</a>
             </td>
           </tr>
         <?php endforeach; ?>
