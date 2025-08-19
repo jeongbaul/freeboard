@@ -1,28 +1,27 @@
 <?php
-session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli("localhost", "root", "", "freeboard");
-    if ($conn->connect_error) {
-        die("DB 연결 실패: " . $conn->connect_error);
+    $conn = mysqli_connect("localhost", "root", "", "freeboard");
+    if (!$conn) {
+        die("DB 연결 실패: " . mysqli_connect_error());
     }
 
     $id = $_POST['id'] ?? '';
     $pw = $_POST['pw'] ?? '';
 
-    $sql = "SELECT * FROM member WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $id_escaped = mysqli_real_escape_string($conn, $id);
 
-    if ($user = $result->fetch_assoc()) {
+    $sql = "SELECT * FROM member WHERE id = '$id_escaped'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($user = mysqli_fetch_assoc($result)) {
         if (password_verify($pw, $user['pw'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_level'] = $user['level'];
 
-            header("Location: /pages/user/login_ok.php");
+            mysqli_close($conn);
+            header("Location: /user/login_ok");
             exit;
         } else {
             $error = "비밀번호가 일치하지 않습니다.";
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "존재하지 않는 아이디입니다.";
     }
 
-    $conn->close();
+    mysqli_close($conn);
 }
 ?>
 
