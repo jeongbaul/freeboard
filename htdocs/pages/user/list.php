@@ -1,14 +1,12 @@
 <?php
 
-session_start();
-
-$conn = new mysqli("localhost", "root", "", "freeboard");
-if ($conn->connect_error) {
-    die("DB 연결 실패: " . $conn->connect_error);
+$conn = mysqli_connect("localhost", "root", "", "freeboard");
+if (!$conn) {
+    die("DB 연결 실패: " . mysqli_connect_error());
 }
 
 $sql = "SELECT id, name, level FROM member ORDER BY id ASC";
-$result = $conn->query($sql);
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -43,8 +41,8 @@ $result = $conn->query($sql);
       </tr>
     </thead>
     <tbody>
-      <?php if ($result && $result->num_rows > 0): ?>
-        <?php while($row = $result->fetch_assoc()): ?>
+      <?php if ($result && mysqli_num_rows($result) > 0): ?>
+        <?php while($row = mysqli_fetch_assoc($result)): ?>
           <tr>
             <td><?= htmlspecialchars($row['id']) ?></td>
             <td><?= htmlspecialchars($row['name']) ?></td>
@@ -57,10 +55,10 @@ $result = $conn->query($sql);
     </tbody>
   </table>
   
-  <p><a href="/index.php">메인페이지로 돌아가기</a></p>
+  <p><a href="/">메인페이지로 돌아가기</a></p>
 </body>
 </html>
 
 <?php
-$conn->close();
+mysqli_close($conn);
 ?>
