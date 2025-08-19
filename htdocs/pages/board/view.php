@@ -1,11 +1,9 @@
 <?php
 date_default_timezone_set('Asia/Seoul');
 
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=freeboard;charset=utf8", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("DB 연결 실패: " . $e->getMessage());
+$conn = mysqli_connect("localhost", "root", "", "freeboard");
+if (!$conn) {
+    die("DB 연결 실패: " . mysqli_connect_error());
 }
 
 $no = $_GET['no'] ?? null;
@@ -13,18 +11,15 @@ if (!$no) {
     die("글 번호가 없습니다.");
 }
 
-// 게시글 조회
-$sql = "SELECT no, subject, writer, content, wdate FROM board WHERE no = :no";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':no', $no, PDO::PARAM_INT);
-$stmt->execute();
-$post = $stmt->fetch(PDO::FETCH_ASSOC);
+$sql = "SELECT no, subject, writer, content, wdate FROM board WHERE no = " . intval($no);
+$result = mysqli_query($conn, $sql);
 
-if (!$post) {
+if (!$result || mysqli_num_rows($result) === 0) {
     die("존재하지 않는 글입니다.");
 }
-?>
 
+$post = mysqli_fetch_assoc($result);
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -87,9 +82,9 @@ if (!$post) {
   <div class="content"><?= nl2br(htmlspecialchars($post['content'])) ?></div>
 
   <div class="btn-group">
-    <button onclick="location.href='/pages/board/list.php'">목록</button>
-    <button onclick="location.href='/pages/board/modify.php?no=<?= $post['no'] ?>'">수정</button>
-    <button onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='/pages/board/delete.php?no=<?= $post['no'] ?>'">삭제</button>
+    <button onclick="location.href='/board/list'">목록</button>
+    <button onclick="location.href='/board/modify?no=<?= $post['no'] ?>'">수정</button>
+    <button onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='/board/delete?no=<?= $post['no'] ?>'">삭제</button>
   </div>
 
 </body>
