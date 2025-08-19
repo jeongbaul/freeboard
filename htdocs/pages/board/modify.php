@@ -1,11 +1,9 @@
 <?php
 date_default_timezone_set('Asia/Seoul');
 
-try {
-    $pdo = new PDO("mysql:host=localhost;dbname=freeboard;charset=utf8", "root", "");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("DB 연결 실패: " . $e->getMessage());
+$conn = mysqli_connect("localhost", "root", "", "freeboard");
+if (!$conn) {
+    die("DB 연결 실패: " . mysqli_connect_error());
 }
 
 $no = $_GET['no'] ?? null;
@@ -13,15 +11,16 @@ if (!$no) {
     die("글 번호가 없습니다.");
 }
 
-$sql = "SELECT subject, writer, content FROM board WHERE no = :no";
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':no', $no, PDO::PARAM_INT);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$no = (int)$no;
+$sql = "SELECT subject, writer, content FROM board WHERE no = $no";
+$result = mysqli_query($conn, $sql);
 
-if (!$row) {
+if (!$result || mysqli_num_rows($result) === 0) {
     die("존재하지 않는 글입니다.");
 }
+
+$row = mysqli_fetch_assoc($result);
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -29,14 +28,12 @@ if (!$row) {
 <head>
   <meta charset="UTF-8" />
   <title>글 수정</title>
-  <style>
-  </style>
 </head>
 <body>
 
   <h1>글 수정</h1>
 
-  <form method="post" action="/pages/board/modify_ok.php">
+  <form method="post" action="/board/modify_ok">
     <input type="hidden" name="no" value="<?= htmlspecialchars($no) ?>">
     <p>
       <label for="subject">제목</label>
@@ -55,7 +52,7 @@ if (!$row) {
     </p>
   </form>
 
-  <a href="/pages/board/list.php">← 목록으로 돌아가기</a>
+  <a href="/board/list">← 목록으로 돌아가기</a>
 
 </body>
 </html>
