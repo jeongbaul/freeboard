@@ -18,11 +18,11 @@ session_start();
 <body>
 <nav>
     <div class="nav-left">
-        <a href="/">홈</a>
-        <a href="/board/list">자유게시판</a>
+        <a href="/">Home</a>
+        <a href="/board/list">Free board</a>
         <a href="/qa/list">Q&A</a>
         <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="/user/list">회원 리스트</a>
+            <a href="/user/list">Member list</a>
         <?php endif; ?>
     </div>
     <div class="nav-right">
