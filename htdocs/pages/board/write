@@ -57,12 +57,16 @@
       <input type="text" id="writer" name="writer" required>
     </p>
     <p>
+      <label for="pw">비밀번호</label>
+      <input type="password" id="pw" name="pw" required placeholder="수정/삭제 시 필요">
+    </p>
+    <p>
       <label for="content">내용</label><br>
       <textarea id="content" name="content" rows="10" required></textarea>
     </p>
     <p style="text-align:center;">
       <button type="submit">등록</button>
-  </p>
+    </p>
   </form>
 
   <a class="back-link" href="/board/list">← 목록으로 돌아가기</a>
