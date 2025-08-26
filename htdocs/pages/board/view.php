@@ -11,7 +11,7 @@ if (!$no) {
     die("글 번호가 없습니다.");
 }
 
-$sql = "SELECT no, subject, writer, content, wdate FROM board WHERE no = " . intval($no);
+$sql = "SELECT no, subject, writer, content, wdate, pw FROM board WHERE no = " . intval($no);
 $result = mysqli_query($conn, $sql);
 
 if (!$result || mysqli_num_rows($result) === 0) {
@@ -80,12 +80,40 @@ $post = mysqli_fetch_assoc($result);
   </div>
 
   <div class="content"><?= nl2br(htmlspecialchars($post['content'])) ?></div>
+<div class="btn-group">
+  <button onclick="location.href='/board/list'">목록</button>
+  <button onclick="modifyPost()">수정</button>
+  <button onclick="deletePost()">삭제</button>
+</div>
 
-  <div class="btn-group">
-    <button onclick="location.href='/board/list'">목록</button>
-    <button onclick="location.href='/board/modify?no=<?= $post['no'] ?>'">수정</button>
-    <button onclick="if(confirm('정말 삭제하시겠습니까?')) location.href='/board/delete?no=<?= $post['no'] ?>'">삭제</button>
-  </div>
+<script>
+function modifyPost() {
+  const pw = prompt("수정하려면 비밀번호를 입력하세요:");
+  if(!pw) return;
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '/board/verify_pw';
+  form.innerHTML = `<input type="hidden" name="no" value="<?= $post['no'] ?>">
+                    <input type="hidden" name="pw" value="`+pw+`">
+                    <input type="hidden" name="action" value="modify">`;
+  document.body.appendChild(form);
+  form.submit();
+}
+
+function deletePost() {
+  const pw = prompt("삭제하려면 비밀번호를 입력하세요:");
+  if(!pw) return;
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '/board/verify_pw';
+  form.innerHTML = `<input type="hidden" name="no" value="<?= $post['no'] ?>">
+                    <input type="hidden" name="pw" value="`+pw+`">
+                    <input type="hidden" name="action" value="delete">`;
+  document.body.appendChild(form);
+  form.submit();
+}
+</script>
+
 
 </body>
 </html>
