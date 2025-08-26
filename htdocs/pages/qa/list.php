@@ -1,7 +1,21 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
 
-$sql = "SELECT no, name, id, subject, content, reply, wdate FROM qa ORDER BY wdate DESC";
+$perPage = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+
+$offset = ($page - 1) * $perPage;
+
+$countSql = "SELECT COUNT(*) as cnt FROM qa";
+$countResult = mysqli_query($conn, $countSql);
+$totalRows = ($countResult) ? mysqli_fetch_assoc($countResult)['cnt'] : 0;
+$totalPages = ceil($totalRows / $perPage);
+
+$sql = "SELECT no, name, id, subject, content, reply, wdate 
+        FROM qa 
+        ORDER BY wdate DESC 
+        LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -14,11 +28,14 @@ $result = mysqli_query($conn, $sql);
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background-color: #f4f4f4; }
-        a { text-decoration: none; color: blue; }
+        a { text-decoration: none;}
         .write-btn { margin-bottom: 15px; display: inline-block; padding: 8px 12px; background-color: #4CAF50; color: white; border-radius: 4px; }
         .write-btn:hover { background-color: #45a049; }
         .delete-btn { color: red; margin-left: 10px; }
         .reply-complete { background-color: #e0f7e9; }
+        .pagination { margin-top: 20px; text-align: center; }
+        .pagination a { margin: 0 5px; padding: 5px 10px; border: 1px solid #ccc; color: #333; text-decoration: none; }
+        .pagination a.active { background-color: #4CAF50; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -69,6 +86,17 @@ $result = mysqli_query($conn, $sql);
     }
     ?>
 </table>
+
+<div class="pagination">
+    <?php
+    if ($totalPages > 1) {
+        for ($i = 1; $i <= $totalPages; $i++) {
+            $active = ($i == $page) ? "class='active'" : "";
+            echo "<a href='?page=$i' $active>$i</a>";
+        }
+    }
+    ?>
+</div>
 
 </body>
 </html>
