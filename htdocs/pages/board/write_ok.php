@@ -18,8 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $writer = mysqli_real_escape_string($conn, $writer);
     $content = mysqli_real_escape_string($conn, $content);
     $wdate = mysqli_real_escape_string($conn, $wdate);
-
-    $sql = "INSERT INTO board (subject, writer, content, wdate) VALUES ('$subject', '$writer', '$content', '$wdate')";
+    $pw = $_POST['pw'] ?? '';
+        if (!$subject || !$writer || !$content || !$pw) {
+            die("모든 항목을 입력해주세요.");
+        }
+        $pw = mysqli_real_escape_string($conn, $pw);
+        $sql = "INSERT INTO board (subject, writer, content, wdate, pw) 
+        VALUES ('$subject', '$writer', '$content', '$wdate', '$pw')";
 
     if (mysqli_query($conn, $sql)) {
         echo "<script>alert('글이 등록되었습니다.'); location.href='/board/list';</script>";
