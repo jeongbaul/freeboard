@@ -28,11 +28,11 @@ if ($qa_result) {
 <meta charset="UTF-8">
 <title>메인 페이지</title>
 <style>
-    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-    th { background-color: #f4f4f4; }
-    a { text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .board  table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    .board  th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    .board th { background-color: #f4f4f4; }
+    .board a { text-decoration: none; color:#000;} 
+    .board a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -41,7 +41,7 @@ if ($qa_result) {
   <p>여기서 게시판과 Q&A, 회원 기능을 사용할 수 있어요.</p>
 
   <h2>최신 게시 5건</h2>
-  <table>
+  <table class="board">
     <thead>
       <tr>
         <th>번호</th>
@@ -61,7 +61,7 @@ if ($qa_result) {
   </table>
 
   <h2>최신 Q&A 5건</h2>
-  <table>
+  <table class="qa">
     <thead>
       <tr>
         <th>번호</th>

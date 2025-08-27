@@ -36,10 +36,11 @@ $result = mysqli_query($conn, $sql);
         .pagination { margin-top: 20px; text-align: center; }
         .pagination a { margin: 0 5px; padding: 5px 10px; border: 1px solid #ccc; color: #333; text-decoration: none; }
         .pagination a.active { background-color: #4CAF50; color: white; font-weight: bold; }
+        .content { margin: 20px;}
     </style>
 </head>
 <body>
-
+<section class="content">
 <h1>Q&A 보기</h1>
 
 <?php if(isset($_SESSION['user_id'])): ?>
@@ -97,6 +98,6 @@ $result = mysqli_query($conn, $sql);
     }
     ?>
 </div>
-
+</section>
 </body>
 </html>

@@ -11,15 +11,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $content = mysqli_real_escape_string($conn, $_POST['content']);
     $id      = $_SESSION['user_id'];
     $name    = $_SESSION['user_name'];
-    $wdate   = date('Y-m-d H:i:s');
-
+    // $wdate   = date('Y-m-d H:i:s');
+    $wdate   = "now()";
+    
     if(!$subject || !$content){
         die("제목과 내용을 모두 입력해주세요.");
     }
 
     $sql = "INSERT INTO qa (name, id, subject, content, wdate) 
-            VALUES ('$name', '$id', '$subject', '$content', '$wdate')";
-
+            VALUES ('$name', '$id', '$subject', '$content', $wdate)";
+    
     if(mysqli_query($conn, $sql)){
 
         header("Location: /qa/list");
