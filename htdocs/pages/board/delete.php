@@ -27,59 +27,55 @@ $post = mysqli_fetch_assoc($result);
 <head>
   <meta charset="UTF-8" />
   <title>글 삭제 확인</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    p {
-      margin-bottom: 15px;
-    }
-    input, button {
-      font-family: Arial, sans-serif;
-    }
-    strong {
-      display: block;
-      margin-bottom: 20px;
-      font-size: 1em;
-    }
-    form {
-      text-align: center;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1em;
-      margin: 5px;
-    }
-    .btn-confirm {
-      background-color: #dc3545;
-      color: white;
-    }
-    .btn-cancel {
-      background-color: #6c757d;
-      color: white;
-    }
-    a {
-      display: inline-block;
-      margin-top: 15px;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<style>
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+    color: #333; 
+    line-height: 1.6;
+}
+h1 {
+    margin-bottom: 20px;
+    text-align: left;
+}
+p {
+    margin-bottom: 15px;
+}
+strong {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+form {
+    text-align: left;
+}
+button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95em;
+    margin-right: 5px;
+}
+.btn-confirm {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+a.back-link {
+    display: block;
+    margin-top: 20px;
+    text-align: left;
+    color: #007bff;
+    text-decoration: none;
+}
+a.back-link:hover {
+    text-decoration: underline;
+}
+</style>
 </head>
 <body>
 
