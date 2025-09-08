@@ -25,49 +25,70 @@ $post = mysqli_fetch_assoc($result);
 <head>
   <meta charset="UTF-8" />
   <title>게시글 보기</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .post-info {
-      margin-bottom: 20px;
-      font-size: 0.9em;
-      color: #666;
-      text-align: center;
-    }
-    .content {
-      white-space: pre-wrap;
-      border-top: 1px solid #ccc;
-      padding-top: 15px;
-    }
-    .btn-group {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .btn {
-      padding: 8px 15px;
-      margin: 0 5px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    .btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+<style>
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+h1, h2, h3 {
+    margin: 0 0 10px 0;
+    text-align: left; /* 제목도 왼쪽 */
+}
+.section-title {
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0 20px 0;
+}
+.post-info, .reply-info {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 10px;
+}
+.content, .reply-content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: left;
+}
+.btn {
+    padding: 8px 15px;
+    margin: 0 5px;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+</style>
+
+
 </head>
 <body>
 
