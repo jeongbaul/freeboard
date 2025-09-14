@@ -1,9 +1,6 @@
 <?php
-
-$conn = mysqli_connect("localhost", "root", "", "freeboard");
-if (!$conn) {
-    die("DB 연결 실패: " . mysqli_connect_error());
-}
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
+mysqli_set_charset($conn, "utf8mb4");
 
 $sql = "SELECT id, name, level FROM member ORDER BY id ASC";
 $result = mysqli_query($conn, $sql);
@@ -14,22 +11,9 @@ $result = mysqli_query($conn, $sql);
 <head>
   <meta charset="UTF-8" />
   <title>회원 리스트</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 60%;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px 12px;
-      text-align: center;
-    }
-    th {
-      background-color: #eee;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-<body>
+<body class="user-list-page">
   <h1>회원 리스트</h1>
 
   <table>
@@ -55,7 +39,7 @@ $result = mysqli_query($conn, $sql);
     </tbody>
   </table>
   
-  <p><a href="/">메인페이지로 돌아가기</a></p>
+  <p><a class="back-link" href="/">메인페이지로 돌아가기</a></p>
 </body>
 </html>
 
