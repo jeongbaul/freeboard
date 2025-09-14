@@ -1,10 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Seoul');
-
-$conn = mysqli_connect("localhost", "root", "", "freeboard");
-if (!$conn) {
-    die("DB 연결 실패: " . mysqli_connect_error());
-}
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/db.php";
 
 $no = $_GET['no'] ?? null;
 if (!$no) {
@@ -27,57 +22,9 @@ $post = mysqli_fetch_assoc($result);
 <head>
   <meta charset="UTF-8" />
   <title>글 삭제 확인</title>
-<style>
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f9f9f9;
-    color: #333; 
-    line-height: 1.6;
-}
-h1 {
-    margin-bottom: 20px;
-    text-align: left;
-}
-p {
-    margin-bottom: 15px;
-}
-strong {
-    display: block;
-    margin-bottom: 20px;
-    font-size: 1em;
-}
-form {
-    text-align: left;
-}
-button {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.95em;
-    margin-right: 5px;
-}
-.btn-confirm {
-    background-color: #dc3545;
-    color: white;
-}
-.btn-cancel {
-    background-color: #6c757d;
-    color: white;
-}
-a.back-link {
-    display: block;
-    margin-top: 20px;
-    text-align: left;
-    color: #007bff;
-    text-decoration: none;
-}
-a.back-link:hover {
-    text-decoration: underline;
-}
-</style>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-<body>
+<body class="delete-page">
 
   <h1>글 삭제 확인</h1>
 
@@ -91,7 +38,7 @@ a.back-link:hover {
     </p>
   </form>
 
-  <a href="/board/list">← 목록으로 돌아가기</a>
+  <a href="/board/list" class="back-link">← 목록으로 돌아가기</a>
 
 </body>
 </html>
