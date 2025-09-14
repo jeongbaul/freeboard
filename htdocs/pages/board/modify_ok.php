@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('Asia/Seoul');
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/db.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location:/board/list");
