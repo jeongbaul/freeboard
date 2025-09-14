@@ -1,8 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "freeboard");
-if (!$conn) {
-    die("DB 연결 실패: " . mysqli_connect_error());
-}
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
 mysqli_set_charset($conn, "utf8mb4");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
