@@ -18,65 +18,53 @@ $sql = "SELECT no, name, id, subject, content, reply, wdate
         LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($conn, $sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Q&A 목록</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        a { text-decoration: none;}
-        .write-btn { margin-bottom: 15px; display: inline-block; padding: 8px 12px; background-color: #4CAF50; color: white; border-radius: 4px; }
-        .write-btn:hover { background-color: #45a049; }
-        .delete-btn { color: red; margin-left: 10px; }
-        .reply-complete { background-color: #e0f7e9; }
-        .pagination { margin-top: 20px; text-align: center; }
-        .pagination a { margin: 0 5px; padding: 5px 10px; border: 1px solid #ccc; color: #333; text-decoration: none; }
-        .pagination a.active { background-color: #4CAF50; color: white; font-weight: bold; }
-        .content { margin: 20px;}
-    </style>
+    <link rel="stylesheet" href="/css/qa.css">
 </head>
-<body>
-<section class="content">
-<h1>Q&A 보기</h1>
+<body class="qa-list-page">
+
+<h1>Q&A 목록</h1>
 
 <?php if(isset($_SESSION['user_id'])): ?>
-    <a href="/qa/write" class="write-btn">문의 작성</a>
+    <a href="/qa/write" class="btn write-btn">문의 작성</a>
 <?php else: ?>
     <p>문의 작성을 위해 <a href="/user/login">로그인</a> 해주세요.</p>
 <?php endif; ?>
 
 <table>
-    <tr>
-        <th>번호</th>
-        <th>작성자</th>
-        <th>문의 제목</th>
-        <th>문의 내용 / 관리</th>
-    </tr>
-
+    <thead>
+        <tr>
+            <th>번호</th>
+            <th>작성자</th>
+            <th>문의 제목</th>
+            <th>문의 내용 / 관리</th>
+        </tr>
+    </thead>
+    <tbody>
     <?php
     if ($result && mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
             $hasReply = !empty($row['reply']);
-            $rowClass = $hasReply ? "class='reply-complete'" : "";
+            $rowClass = $hasReply ? "reply-complete" : "";
 
-            echo "<tr $rowClass>";
+            echo "<tr class='$rowClass'>";
             echo "<td>".$row['no']."</td>";
             echo "<td>".htmlspecialchars($row['name'])."</td>";
             echo "<td><a href='/qa/view?no=".$row['no']."'>".htmlspecialchars($row['subject'])."</a></td>";
 
             echo "<td>";
             echo nl2br(htmlspecialchars($row['content']));
-            
+
             if(isset($_SESSION['user_id']) && $_SESSION['user_id'] === $row['id']){
                 echo " <a href='/qa/delete?no=".$row['no']."' class='delete-btn' onclick=\"return confirm('정말 삭제하시겠습니까?');\">[삭제]</a>";
             }
 
             if($hasReply){
-                echo "<br><strong style='color:green;'>[답변 완료]</strong>";
+                echo "<br><strong class='reply-label'>[답변 완료]</strong>";
             }
 
             echo "</td>";
@@ -86,18 +74,19 @@ $result = mysqli_query($conn, $sql);
         echo "<tr><td colspan='4'>등록된 질문이 없습니다.</td></tr>";
     }
     ?>
+    </tbody>
 </table>
 
 <div class="pagination">
     <?php
     if ($totalPages > 1) {
         for ($i = 1; $i <= $totalPages; $i++) {
-            $active = ($i == $page) ? "class='active'" : "";
-            echo "<a href='?page=$i' $active>$i</a>";
+            $active = ($i == $page) ? "active" : "";
+            echo "<a href='?page=$i' class='$active'>$i</a>";
         }
     }
     ?>
 </div>
-</section>
+
 </body>
 </html>
