@@ -1,6 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "freeboard");
-if (!$conn) { die("DB 연결 실패: " . mysqli_connect_error()); }
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/db.php";
 
 $no = $_POST['no'] ?? null;
 $pw = $_POST['pw'] ?? null;
