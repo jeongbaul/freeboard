@@ -13,52 +13,60 @@ if(!$question = mysqli_fetch_assoc($result)){
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply'])){
+    if(($_SESSION['user_level'] ?? '') != 1){
+        die("답변 권한이 없습니다.");
+    }
+
     $reply = mysqli_real_escape_string($conn, $_POST['reply']);
     $reply_name = $_SESSION['user_name'] ?? '관리자';
     $reply_id = $_SESSION['user_id'] ?? 'admin';
     $reply_date = date('Y-m-d H:i:s');
 
     $update_sql = "UPDATE qa 
-                   SET reply='$reply', reply_name='$reply_name', reply_id='$reply_id', reply_date='$reply_date'
-                   WHERE no='$no'";
+                SET reply='$reply', reply_name='$reply_name', reply_id='$reply_id', reply_date='$reply_date'
+                WHERE no='$no'";
     mysqli_query($conn, $update_sql);
 
-    header("Location: /qa/view?no=$no");
+    header("Location: /qa/view.php?no=$no");
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Q&A 상세보기</title>
+    <link rel="stylesheet" href="/css/qa.css">
 </head>
-<body>
-<h1>질문 상세보기</h1>
+<body class="qa-view-page">
 
-<h3>제목: <?= htmlspecialchars($question['subject']) ?></h3>
-<p>작성자: <?= htmlspecialchars($question['name']) ?></p>
-<p>문의 내용: <?= nl2br(htmlspecialchars($question['content'])) ?></p>
-<p>작성일: <?= $question['wdate'] ?></p>
+<div class="container">
+    <h1>질문 상세보기</h1>
 
-<hr>
+    <h3>제목: <?= htmlspecialchars($question['subject']) ?></h3>
+    <p class="post-info">작성자: <?= htmlspecialchars($question['name']) ?> | 작성일: <?= $question['wdate'] ?></p>
+    <div class="content"><?= nl2br(htmlspecialchars($question['content'])) ?></div>
 
-<?php if(empty($question['reply'])): ?>
-    <h3>답변 작성</h3>
-    <form method="POST">
-        <textarea name="reply" rows="5" cols="50" required></textarea><br>
-        <button type="submit">답변 저장</button>
-    </form>
-<?php else: ?>
-    <h3>답변</h3>
-    <p>작성자: <?= htmlspecialchars($question['reply_name']) ?></p>
-    <p>작성일: <?= $question['reply_date'] ?></p>
-    <p>답변 내용: <?= nl2br(htmlspecialchars($question['reply'])) ?></p>
-<?php endif; ?>
+    <hr>
 
-<p><a href="/qa/list">목록으로 돌아가기</a></p>
+    <?php if(empty($question['reply'])): ?>
+        <?php if(($_SESSION['user_level'] ?? '') == 1): ?>
+            <h3>답변 작성</h3>
+            <form method="POST">
+                <textarea name="reply" rows="5" required></textarea>
+                <p><button type="submit" class="btn">답변 저장</button></p>
+            </form>
+        <?php else: ?>
+            <p><strong>답변 권한이 없습니다. (관리자 전용)</strong></p>
+        <?php endif; ?>
+    <?php else: ?>
+        <h3>답변</h3>
+        <p class="reply-info">작성자: <?= htmlspecialchars($question['reply_name']) ?> | 작성일: <?= $question['reply_date'] ?></p>
+        <div class="reply-content"><?= nl2br(htmlspecialchars($question['reply'])) ?></div>
+    <?php endif; ?>
 
+    <p><a href="/qa/list" class="back-link">← 목록으로 돌아가기</a></p>
+</div>
 
 </body>
 </html>
