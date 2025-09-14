@@ -1,11 +1,10 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
+mysqli_set_charset($conn, "utf8mb4");
+
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = mysqli_connect("localhost", "root", "", "freeboard");
-    if (!$conn) {
-        die("DB 연결 실패: " . mysqli_connect_error());
-    }
-
     $id = $_POST['id'] ?? '';
     $pw = $_POST['pw'] ?? '';
 
@@ -39,16 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <title>로그인</title>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-<body>
+<body class="user-login-page">
   <h1>로그인</h1>
 
-  <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
+  <?php if (!empty($error)) echo "<p class='error-msg'>$error</p>"; ?>
 
   <form method="POST">
-    ID: <input type="text" name="id" required><br>
-    PW: <input type="password" name="pw" required><br>
+    <label>ID:</label>
+    <input type="text" name="id" required><br>
+    
+    <label>PW:</label>
+    <input type="password" name="pw" required><br>
+    
     <button type="submit">로그인</button>
   </form>
+
+  <p><a class="back-link" href="/">메인페이지로 돌아가기</a></p>
 </body>
 </html>
