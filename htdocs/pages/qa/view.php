@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply'])){
 <head>
     <meta charset="UTF-8">
     <title>Q&A 상세보기</title>
-    <link rel="stylesheet" href="/css/qa.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body class="qa-view-page">
 
