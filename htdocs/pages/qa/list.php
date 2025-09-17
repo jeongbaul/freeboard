@@ -23,7 +23,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Q&A 목록</title>
-    <link rel="stylesheet" href="/css/qa.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body class="qa-list-page">
 
