@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start();    
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,6 +21,8 @@ session_start();
         <a href="/">Home</a>
         <a href="/board/list">Free board</a>
         <a href="/qa/list">Q&A</a>
+        <a href="/admin/menu_admin">메뉴관리</a>
+
         <?php if(isset($_SESSION['user_id'])): ?>
             <a href="/user/list">Member list</a>
         <?php endif; ?>

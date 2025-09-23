@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply'])){
                 WHERE no='$no'";
     mysqli_query($conn, $update_sql);
 
-    header("Location: /qa/view.php?no=$no");
+    header("Location: /qa/view?no=$no");
     exit;
 }
 ?>
