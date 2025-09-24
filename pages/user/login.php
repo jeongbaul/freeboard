@@ -33,28 +33,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>로그인</title>
-  <link rel="stylesheet" href="/css/index.css">
-</head>
-<body class="user-login-page">
-  <h1>로그인</h1>
+<h1>로그인</h1>
 
-  <?php if (!empty($error)) echo "<p class='error-msg'>$error</p>"; ?>
+<?php if (!empty($error)) echo "<p class='error-msg'>$error</p>"; ?>
 
-  <form method="POST">
-    <label>ID:</label>
-    <input type="text" name="id" required><br>
-    
-    <label>PW:</label>
-    <input type="password" name="pw" required><br>
-    
-    <button type="submit">로그인</button>
-  </form>
+<form method="POST">
+    <p>
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required>
+    </p>
+    <p>
+        <label for="pw">PW:</label>
+        <input type="password" id="pw" name="pw" required>
+    </p>
+    <p>
+        <button type="submit">로그인</button>
+    </p>
+</form>
 
-  <p><a class="back-link" href="/">메인페이지로 돌아가기</a></p>
-</body>
-</html>
+<p><a class="back-link" href="/">메인페이지로 돌아가기</a></p>

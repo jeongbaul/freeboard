@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>자유게시판 글쓰기</title>
-  <link rel="stylesheet" href="/css/index.css">
-</head>
-
-<body class="write-page">
-
 <div class="container">
 <h1>자유게시판 글쓰기</h1>
+
 <form method="post" action="/board/write_ok">
     <p>
         <label for="subject">제목</label>
@@ -31,7 +22,6 @@
         <button type="submit">등록</button>
     </p>
 </form>
+
 <a class="back-link" href="/board/list">← 목록으로 돌아가기</a>
 </div>
-</body>
-</html>

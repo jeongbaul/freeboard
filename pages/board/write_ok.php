@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mysqli_query($conn, $sql)) {
         echo "<script>
                 alert('글이 등록되었습니다.');
-                location.href='/board/list.php';
+                location.href='/board/list';
               </script>";
     } else {
         echo "등록 실패: " . mysqli_error($conn);

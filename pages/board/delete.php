@@ -17,28 +17,16 @@ if (!$result || mysqli_num_rows($result) === 0) {
 $post = mysqli_fetch_assoc($result);
 ?>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>글 삭제 확인</title>
-  <link rel="stylesheet" href="/css/index.css">
-</head>
-<body class="delete-page">
+<h1>글 삭제 확인</h1>
 
-  <h1>글 삭제 확인</h1>
+<form method="post" action="/board/delete_ok">
+  <p>정말 삭제하시겠습니까?</p>
+  <p><strong><?= htmlspecialchars($post['subject']) ?></strong></p>
+  <input type="hidden" name="no" value="<?= htmlspecialchars($no) ?>">
+  <p>
+    <button type="submit" class="btn-confirm">삭제</button>
+    <button type="button" class="btn-cancel" onclick="history.back()">취소</button>
+  </p>
+</form>
 
-  <form method="post" action="/board/delete_ok">
-    <p>정말 삭제하시겠습니까?</p>
-    <p><strong><?= htmlspecialchars($post['subject']) ?></strong></p>
-    <input type="hidden" name="no" value="<?= htmlspecialchars($no) ?>">
-    <p>
-      <button type="submit" class="btn-confirm">삭제</button>
-      <button type="button" class="btn-cancel" onclick="history.back()">취소</button>
-    </p>
-  </form>
-
-  <a href="/board/list" class="back-link">← 목록으로 돌아가기</a>
-
-</body>
-</html>
+<a href="/board/list" class="back-link">← 목록으로 돌아가기</a>

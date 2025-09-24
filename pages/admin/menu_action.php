@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/db.php";
 
 // 관리자만 처리
@@ -17,7 +16,7 @@ if($action == 'add'){
 
     $sql = "INSERT INTO menu (title, link, ord) VALUES ('$title', '$link', $ord)";
     mysqli_query($conn, $sql);
-    header("Location: menu_admin.php");
+    header("Location: menu_admin");
     exit;
 }
 elseif($action == 'delete'){
@@ -26,6 +25,6 @@ elseif($action == 'delete'){
         $sql = "DELETE FROM menu WHERE id=$id";
         mysqli_query($conn, $sql);
     }
-    header("Location: menu_admin.php");
+    header("Location: menu_admin");
     exit;
 }

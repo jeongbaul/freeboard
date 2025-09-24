@@ -6,6 +6,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <title>BU 갤러리</title>
+  <link rel="stylesheet" href="/index.css">
   <style>
     body { font-family: Arial, sans-serif; margin: 0; }
     nav { background-color: #333; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }

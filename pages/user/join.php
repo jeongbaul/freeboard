@@ -11,12 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$id || !$name || !$pw) {
         die("모든 항목을 입력해주세요.");
     }
+
     $check_sql = "SELECT * FROM member WHERE id='$id'";
     $check_result = mysqli_query($conn, $check_sql);
     if(mysqli_num_rows($check_result) > 0){
         die("이미 존재하는 아이디입니다.");
     }
-    
+
     $hashed_pw = password_hash($pw, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO member (id, pw, name, level) VALUES ('$id', '$hashed_pw', '$name', $level)";
@@ -31,19 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 mysqli_close($conn);
 ?>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <title>회원가입</title>
-</head>
-<body>
-    <h1>회원가입</h1>
-    <form method="POST">
-        ID: <input type="text" name="id" required><br>
-        NAME: <input type="text" name="name" required><br>
-        PW: <input type="password" name="pw" required><br>
+<h1>회원가입</h1>
+
+<form method="POST">
+    <p>
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id" required>
+    </p>
+    <p>
+        <label for="name">NAME</label>
+        <input type="text" id="name" name="name" required>
+    </p>
+    <p>
+        <label for="pw">PW</label>
+        <input type="password" id="pw" name="pw" required>
+    </p>
+    <p>
         <button type="submit">회원가입</button>
-    </form>
-</body>
-</html>
+    </p>
+</form>

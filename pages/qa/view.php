@@ -31,14 +31,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply'])){
     exit;
 }
 ?>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Q&A 상세보기</title>
-    <link rel="stylesheet" href="/css/index.css">
-</head>
-<body class="qa-view-page">
 
 <div class="container">
     <h1>질문 상세보기</h1>
@@ -67,6 +59,3 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reply'])){
 
     <p><a href="/qa/list" class="back-link">← 목록으로 돌아가기</a></p>
 </div>
-
-</body>
-</html>

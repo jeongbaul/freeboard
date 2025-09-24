@@ -18,14 +18,6 @@ $sql = "SELECT no, name, id, subject, content, reply, wdate
         LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($conn, $sql);
 ?>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Q&A 목록</title>
-    <link rel="stylesheet" href="/css/index.css">
-</head>
-<body class="qa-list-page">
 
 <h1>Q&A 목록</h1>
 
@@ -87,6 +79,3 @@ $result = mysqli_query($conn, $sql);
     }
     ?>
 </div>
-
-</body>
-</html>
