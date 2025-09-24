@@ -9,6 +9,12 @@ body {
   margin: 0;
   padding: 0;
 }
+/* body { font-family: Arial, sans-serif; margin: 0; } */
+nav { background-color: #333; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+.nav-left, .nav-right { display: flex; gap: 15px; }
+.nav-left a, .nav-right a { color: white; text-decoration: none; padding: 8px 12px; border-radius: 4px; }
+/* a:hover { background-color: #555; } */
+/* span { color: white; } */
 
 h1 {
   margin-bottom: 20px;
@@ -53,45 +59,46 @@ a.back-link:hover {
 /* ================================================== */
 /* board 페이지 전용 스타일 */
 /* ================================================== */
-body.board-list-page table,
-body.board-modify-page input,
-body.board-modify-page textarea,
-body.board-view-page .container,
-body.board-write-page input,
-body.board-write-page textarea {
+.board-list-page table,
+.board-modify-page input,
+.board-modify-page textarea,
+.board-view-page .container,
+.board-write-page input,
+.board-write-page textarea {
   box-sizing: border-box;
 }
 
-body.board-delete-page .btn-confirm {
+.board-delete-page .btn-confirm {
   background-color: #dc3545;
   color: white;
 }
 
-body.board-delete-page .btn-cancel {
+.board-delete-page .btn-cancel {
   background-color: #6c757d;
   color: white;
 }
 
 /* board/list.php */
-body.board-list-page table {
+.board-list-page > tbody > td > a { color:#000; }
+.board-list-page table {
   border-collapse: collapse;
   width: 100%;
   max-width: 900px;
   margin-bottom: 20px;
 }
 
-body.board-list-page th,
-body.board-list-page td {
+.board-list-page th,
+.board-list-page td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-body.board-list-page th {
+.board-list-page th {
   background-color: #f4f4f4;
 }
 
-body.board-list-page .btn {
+.board-list-page .btn {
   padding: 5px 10px;
   margin: 0 2px;
   background-color: #007bff;
@@ -103,23 +110,23 @@ body.board-list-page .btn {
   font-size: 0.9em;
 }
 
-body.board-list-page .btn:hover {
+.board-list-page .btn:hover {
   background-color: #0056b3;
 }
 
-body.board-list-page .btn.disabled {
+.board-list-page .btn.disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-body.board-list-page .pagination {
+.board-list-page .pagination {
   max-width: 900px;
   margin: 10px auto 20px auto;
   text-align: center;
 }
 
-body.board-list-page .pagination a,
-body.board-list-page .pagination strong {
+.board-list-page .pagination a,
+.board-list-page .pagination strong {
   display: inline-block;
   margin: 0 5px;
   padding: 4px 8px;
@@ -128,26 +135,26 @@ body.board-list-page .pagination strong {
   color: #007bff;
 }
 
-body.board-list-page .pagination strong {
+.board-list-page .pagination strong {
   background-color: #007bff;
   color: white;
   border-radius: 3px;
 }
 
 /* board/modify.php */
-body.board-modify-page form p {
+.board-modify-page form p {
   margin: 15px 0;
 }
 
-body.board-modify-page label {
+.board-modify-page label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-body.board-modify-page input[type='text'],
-body.board-modify-page input[type='password'],
-body.board-modify-page textarea {
+.board-modify-page input[type='text'],
+.board-modify-page input[type='password'],
+.board-modify-page textarea {
   width: 100%;
   padding: 8px;
   font-size: 1em;
@@ -155,12 +162,12 @@ body.board-modify-page textarea {
   border-radius: 4px;
 }
 
-body.board-modify-page textarea {
+.board-modify-page textarea {
   height: 180px;
   resize: vertical;
 }
 
-body.board-modify-page button {
+.board-modify-page button {
   padding: 8px 20px;
   background-color: #007bff;
   color: #fff;
@@ -170,12 +177,12 @@ body.board-modify-page button {
   margin-top: 10px;
 }
 
-body.board-modify-page button:hover {
+.board-modify-page button:hover {
   background-color: #0056b3;
 }
 
 /* board/view.php */
-body.board-view-page .container {
+.board-view-page .container {
   max-width: 700px;
   margin: 50px auto;
   padding: 20px;
@@ -183,40 +190,40 @@ body.board-view-page .container {
   border-radius: 6px;
 }
 
-body.board-view-page h1,
-body.board-view-page h2,
-body.board-view-page h3 {
+.board-view-page h1,
+.board-view-page h2,
+.board-view-page h3 {
   margin: 0 0 10px 0;
   text-align: left;
 }
 
-body.board-view-page .section-title {
+.board-view-page .section-title {
   font-weight: bold;
   margin: 20px 0 5px 0;
 }
 
-body.board-view-page hr {
+.board-view-page hr {
   border: 0;
   border-top: 1px solid #ddd;
   margin: 10px 0 20px 0;
 }
 
-body.board-view-page .post-info,
-body.board-view-page .reply-info {
+.board-view-page .post-info,
+.board-view-page .reply-info {
   font-size: 0.85em;
   color: #666;
   margin-bottom: 10px;
 }
 
-body.board-view-page .content,
-body.board-view-page .reply-content {
+.board-view-page .content,
+.board-view-page .reply-content {
   white-space: pre-wrap;
   line-height: 1.6;
   margin-bottom: 20px;
   text-align: left;
 }
 
-body.board-view-page .btn {
+.board-view-page .btn {
   padding: 8px 15px;
   margin: 0 5px;
   font-size: 0.9em;
@@ -227,11 +234,11 @@ body.board-view-page .btn {
   cursor: pointer;
 }
 
-body.board-view-page .btn:hover {
+.board-view-page .btn:hover {
   background-color: #0056b3;
 }
 
-body.board-view-page textarea {
+.board-view-page textarea {
   width: 100%;
   padding: 8px;
   font-size: 0.9em;
@@ -241,47 +248,47 @@ body.board-view-page textarea {
 }
 
 /* board/write.php */
-body.board-write-page h1,
-body.board-write-page h2,
-body.board-write-page h3 {
+.board-write-page h1,
+.board-write-page h2,
+.board-write-page h3 {
   margin: 0 0 10px 0;
 }
 
-body.board-write-page label {
+.board-write-page label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-body.board-write-page input,
-body.board-write-page textarea {
+.board-write-page input,
+.board-write-page textarea {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-body.board-write-page textarea {
+.board-write-page textarea {
   height: 180px;
   resize: vertical;
 }
 
-body.board-write-page .btn {
+.board-write-page .btn {
   padding: 8px 15px;
   margin: 0 5px 10px 0;
   color: #fff;
   background-color: #007bff;
 }
 
-body.board-write-page .btn:hover {
+.board-write-page .btn:hover {
   background-color: #0056b3;
 }
 
 /* ================================================== */
 /* QA 페이지 전용 스타일 */
 /* ================================================== */
-body.qa-list-page,
-body.qa-view-page {
+.qa-list-page,
+.qa-view-page {
   font-family: 'Noto Sans KR', sans-serif;
   background-color: #f9f9f9;
   color: #333;
@@ -291,19 +298,19 @@ body.qa-view-page {
 }
 
 /* QA 리스트 공통 */
-body.qa-list-page h1 {
+.qa-list-page h1 {
   margin-top: 0; /* 제목 위 여백 제거 */
   margin-bottom: 0; /* 제목 아래 여백 조정 */
   text-align: left;
 }
 
-body.qa-list-page a,
-body.qa-view-page a {
+.qa-list-page a,
+.qa-view-page a {
   text-decoration: none;
 }
 
-body.qa-list-page .btn.write-btn,
-body.qa-view-page .btn.write-btn {
+.qa-list-page .btn.write-btn,
+.qa-view-page .btn.write-btn {
   margin-bottom: 15px;
   display: inline-block;
   padding: 8px 12px;
@@ -312,43 +319,43 @@ body.qa-view-page .btn.write-btn {
   border-radius: 4px;
 }
 
-body.qa-list-page .btn.write-btn:hover,
-body.qa-view-page .btn.write-btn:hover {
+.qa-list-page .btn.write-btn:hover,
+.qa-view-page .btn.write-btn:hover {
   background-color: #45a049;
 }
 
-body.qa-list-page .delete-btn,
-body.qa-view-page .delete-btn {
+.qa-list-page .delete-btn,
+.qa-view-page .delete-btn {
   color: red;
   margin-left: 10px;
 }
 
 /* QA 리스트 테이블 */
-body.qa-list-page table {
+.qa-list-page table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-body.qa-list-page th,
-body.qa-list-page td {
+.qa-list-page th,
+.qa-list-page td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
 }
 
-body.qa-list-page th {
+.qa-list-page th {
   background-color: #f4f4f4;
 }
 
 /* QA 페이지네이션 */
-body.qa-list-page .pagination {
+.qa-list-page .pagination {
   margin-top: 20px;
   text-align: center;
 }
 
-body.qa-list-page .pagination a,
-body.qa-list-page .pagination strong {
+.qa-list-page .pagination a,
+.qa-list-page .pagination strong {
   display: inline-block;
   margin: 0 5px;
   padding: 5px 10px;
@@ -357,15 +364,15 @@ body.qa-list-page .pagination strong {
   color: #007bff;
 }
 
-body.qa-list-page .pagination a.active,
-body.qa-list-page .pagination strong.active {
+.qa-list-page .pagination a.active,
+.qa-list-page .pagination strong.active {
   background-color: #4caf50;
   color: white;
   border-radius: 4px;
 }
 
 /* QA view 페이지 */
-body.qa-view-page .container {
+.qa-view-page .container {
   max-width: 100%; /* 화면 전체 너비 */
   margin: 0; /* 바깥 여백 제거 */
   padding: 0; /* 안쪽 여백 제거 */
@@ -374,26 +381,26 @@ body.qa-view-page .container {
   border-radius: 0; /* 둥근 모서리 제거 */
 }
 
-body.qa-view-page h1,
-body.qa-view-page h3 {
+.qa-view-page h1,
+.qa-view-page h3 {
   margin: 0 0 10px 0;
 }
 
-body.qa-view-page .post-info,
-body.qa-view-page .reply-info {
+.qa-view-page .post-info,
+.qa-view-page .reply-info {
   font-size: 0.85em;
   color: #666;
   margin-bottom: 10px;
 }
 
-body.qa-view-page .content,
-body.qa-view-page .reply-content {
+.qa-view-page .content,
+.qa-view-page .reply-content {
   white-space: pre-wrap;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
-body.qa-view-page textarea {
+.qa-view-page textarea {
   width: 100%;
   padding: 8px;
   border-radius: 4px;
@@ -401,7 +408,7 @@ body.qa-view-page textarea {
   resize: vertical;
 }
 
-body.qa-view-page .btn {
+.qa-view-page .btn {
   padding: 8px 15px;
   font-size: 0.9em;
   color: #fff;
@@ -411,40 +418,40 @@ body.qa-view-page .btn {
   cursor: pointer;
 }
 
-body.qa-view-page .btn:hover {
+.qa-view-page .btn:hover {
   background-color: #0056b3;
 }
 
-body.qa-view-page .back-link {
+.qa-view-page .back-link {
   margin-top: 20px;
   display: block;
   color: #007bff;
 }
 
-body.qa-view-page .back-link:hover {
+.qa-view-page .back-link:hover {
   text-decoration: underline;
 }
 
 /* 반응형 */
 @media screen and (max-width: 768px) {
-  body.board-view-page .container,
-  body.qa-view-page .container,
-  body.board-list-page table,
-  body.qa-list-page table {
+  .board-view-page .container,
+  .qa-view-page .container,
+  .board-list-page table,
+  .qa-list-page table {
     width: 100%;
   }
 
-  body.board-list-page th,
-  body.board-list-page td,
-  body.qa-list-page th,
-  body.qa-list-page td {
+  .board-list-page th,
+  .board-list-page td,
+  .qa-list-page th,
+  .qa-list-page td {
     font-size: 0.9em;
   }
 
-  body.board-view-page .btn,
-  body.board-write-page .btn,
-  body.qa-view-page .btn,
-  body.qa-list-page .btn {
+  .board-view-page .btn,
+  .board-write-page .btn,
+  .qa-view-page .btn,
+  .qa-list-page .btn {
     font-size: 0.85em;
     padding: 6px 12px;
   }
@@ -453,50 +460,50 @@ body.qa-view-page .back-link:hover {
 /* ================================================== */
 /* user-list-page (회원 리스트 페이지) */
 /* ================================================== */
-body.user-list-page table {
+.user-list-page table {
   border-collapse: collapse;
   width: 60%;
   margin-bottom: 20px;
 }
 
-body.user-list-page th,
-body.user-list-page td {
+.user-list-page th,
+.user-list-page td {
   border: 1px solid #ccc;
   padding: 8px 12px;
   text-align: center;
 }
 
-body.user-list-page th {
+.user-list-page th {
   background-color: #eee;
 }
 
-body.user-list-page .back-link {
+.user-list-page .back-link {
   display: block;
   margin-top: 20px;
   color: #007bff;
   text-decoration: none;
 }
 
-body.user-list-page .back-link:hover {
+.user-list-page .back-link:hover {
   text-decoration: underline;
 }
 
 /* ================================================== */
 /* user-login-page (로그인 페이지) */
 /* ================================================== */
-body.user-login-page form {
+.user-login-page form {
   max-width: 400px;
   margin-top: 20px;
 }
 
-body.user-login-page label {
+.user-login-page label {
   display: block;
   margin-top: 10px;
   font-weight: bold;
 }
 
-body.user-login-page input[type='text'],
-body.user-login-page input[type='password'] {
+.user-login-page input[type='text'],
+.user-login-page input[type='password'] {
   width: 100%;
   padding: 8px;
   font-size: 1em;
@@ -505,7 +512,7 @@ body.user-login-page input[type='password'] {
   box-sizing: border-box;
 }
 
-body.user-login-page button {
+.user-login-page button {
   padding: 8px 20px;
   margin-top: 10px;
   font-size: 0.95em;
@@ -516,22 +523,22 @@ body.user-login-page button {
   cursor: pointer;
 }
 
-body.user-login-page button:hover {
+.user-login-page button:hover {
   background-color: #0056b3;
 }
 
-body.user-login-page .back-link {
+.user-login-page .back-link {
   display: block;
   margin-top: 20px;
   color: #007bff;
   text-decoration: none;
 }
 
-body.user-login-page .back-link:hover {
+.user-login-page .back-link:hover {
   text-decoration: underline;
 }
 
-body.user-login-page .error-msg {
+.user-login-page .error-msg {
   color: red;
   margin-top: 10px;
 }
@@ -539,50 +546,50 @@ body.user-login-page .error-msg {
 /* ================================================== */
 /* main-page (메인 페이지) */
 /* ================================================== */
-body.main-page main {
+.main-page main {
   padding: 20px;
 }
 
-body.main-page h1 {
+.main-page h1 {
   margin-bottom: 20px;
   text-align: left;
 }
 
-body.main-page h2 {
+.main-page h2 {
   margin-top: 30px;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
 /* 게시판 테이블 스타일 */
-body.main-page .board-table,
-body.main-page .qa-table {
+.main-page .board-table,
+.main-page .qa-table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 20px;
 }
 
-body.main-page .board-table th,
-body.main-page .board-table td,
-body.main-page .qa-table th,
-body.main-page .qa-table td {
+.main-page .board-table th,
+.main-page .board-table td,
+.main-page .qa-table th,
+.main-page .qa-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-body.main-page .board-table th,
-body.main-page .qa-table th {
+.main-page .board-table th,
+.main-page .qa-table th {
   background-color: #f4f4f4;
 }
 
-body.main-page .board-table a,
-body.main-page .qa-table a {
+.main-page .board-table a,
+.main-page .qa-table a {
   text-decoration: none;
   color: #000;
 }
 
-body.main-page .board-table a:hover,
-body.main-page .qa-table a:hover {
+.main-page .board-table a:hover,
+.main-page .qa-table a:hover {
   text-decoration: underline;
 }

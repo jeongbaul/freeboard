@@ -50,31 +50,32 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 <a href="/board/write" class="btn">글쓰기</a>
 
-<table>
-  <thead>
-    <tr>
-      <th scope="col">순번</th>
-      <th scope="col">제목</th>
-      <th scope="col">작성자</th>
-      <th scope="col">작성일</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php if ($rows): ?>
-      <?php foreach ($rows as $row): ?>
-        <tr>
-          <td><?= $row['no'] ?></td>
-          <td><a href="/board/view?no=<?= $row['no'] ?>"><?= htmlspecialchars($row['subject']) ?></a></td>
-          <td><?= htmlspecialchars($row['writer']) ?></td>
-          <td><?= date("Y-m-d H:i:s", strtotime($row['wdate'])) ?></td>
-        </tr>
-      <?php endforeach; ?>
-    <?php else: ?>
-      <tr><td colspan="4">자유게시판을 이용해주세요.</td></tr>
-    <?php endif; ?>
-  </tbody>
-</table>
-
+<div class="board-list-page">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">순번</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성자</th>
+        <th scope="col">작성일</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if ($rows): ?>
+        <?php foreach ($rows as $row): ?>
+          <tr>
+            <td><?= $row['no'] ?></td>
+            <td><a href="/board/view?no=<?= $row['no'] ?>"><?= htmlspecialchars($row['subject']) ?></a></td>
+            <td><?= htmlspecialchars($row['writer']) ?></td>
+            <td><?= date("Y-m-d H:i:s", strtotime($row['wdate'])) ?></td>
+          </tr>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <tr><td colspan="4">자유게시판을 이용해주세요.</td></tr>
+      <?php endif; ?>
+    </tbody>
+  </table>
+</div>
 <div class="pagination">
   <?php for ($i = 1; $i <= $total_pages; $i++): ?>
     <?php if ($i == $page): ?>
