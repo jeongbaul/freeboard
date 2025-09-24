@@ -6,15 +6,7 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <title>BU 갤러리</title>
-  <link rel="stylesheet" href="/index.css">
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; }
-    nav { background-color: #333; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-    .nav-left, .nav-right { display: flex; gap: 15px; }
-    a { color: white; text-decoration: none; padding: 8px 12px; border-radius: 4px; }
-    a:hover { background-color: #555; }
-    span { color: white; }
-  </style>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <nav>

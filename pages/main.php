@@ -24,6 +24,7 @@ if ($qa_result) {
 <p>여기서 게시판과 Q&A, 회원 기능을 사용할 수 있어요.</p>
 
 <h2>최신 게시 5건</h2>
+<div class="main-page">
 <table class="board-table">
     <thead>
         <tr>
@@ -62,3 +63,5 @@ if ($qa_result) {
         <?php endforeach; ?>
     </tbody>
 </table>
+
+</div>
