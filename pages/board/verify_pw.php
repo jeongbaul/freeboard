@@ -10,7 +10,6 @@ if (!$no || !$pw || !$action) {
 }
 
 $no = (int)$no;
-$pw = mysqli_real_escape_string($conn, $pw);
 
 $sql = "SELECT pw FROM board WHERE no = $no";
 $result = mysqli_query($conn, $sql);
@@ -19,8 +18,15 @@ if (!$result || mysqli_num_rows($result) === 0) {
 }
 
 $row = mysqli_fetch_assoc($result);
+$storedPw = $row['pw'];
 
-if ($row['pw'] !== $pw) {
+if (strlen($storedPw) === 60) {
+    $ok = password_verify($pw, $storedPw);
+} else {
+    $ok = ($pw === $storedPw);
+}
+
+if (!$ok) {
     echo "<script>alert('비밀번호가 틀립니다.'); history.back();</script>";
     exit;
 }

@@ -6,11 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$conn = mysqli_connect("localhost", "root", "", "freeboard");
-if (!$conn) {
-    die("DB 연결 실패: " . mysqli_connect_error());
-}
-
 $no = $_POST['no'] ?? null;
 $subject = $_POST['subject'] ?? '';
 $writer = $_POST['writer'] ?? '';
@@ -30,14 +25,23 @@ if (!$result || mysqli_num_rows($result) === 0) {
 }
 
 $row = mysqli_fetch_assoc($result);
-if ($row['pw'] !== $pw) {
-    die("비밀번호가 틀립니다.");
+$storedPw = $row['pw'];
+
+if (strlen($storedPw) === 60) {
+    $ok = password_verify($pw, $storedPw);
+} else {
+    $ok = ($pw === $storedPw);
+}
+
+if (!$ok) {
+    die("<script>alert('비밀번호가 틀립니다.'); history.back();</script>");
 }
 
 $subject_esc = mysqli_real_escape_string($conn, $subject);
 $writer_esc = mysqli_real_escape_string($conn, $writer);
 $content_esc = mysqli_real_escape_string($conn, $content);
 $edate = date("Y-m-d H:i:s");
+
 $sql = "UPDATE board 
         SET subject='$subject_esc', 
             writer='$writer_esc', 

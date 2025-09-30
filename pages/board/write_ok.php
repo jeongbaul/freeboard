@@ -15,11 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = mysqli_real_escape_string($conn, $subject);
     $writer  = mysqli_real_escape_string($conn, $writer);
     $content = mysqli_real_escape_string($conn, $content);
-    $pw      = mysqli_real_escape_string($conn, $pw);
     $wdate   = mysqli_real_escape_string($conn, $wdate);
 
+    $hashedPw = password_hash($pw, PASSWORD_DEFAULT);
+
     $sql = "INSERT INTO board (subject, writer, content, wdate, pw) 
-            VALUES ('$subject', '$writer', '$content', '$wdate', '$pw')";
+            VALUES ('$subject', '$writer', '$content', '$wdate', '$hashedPw')";
 
     if (mysqli_query($conn, $sql)) {
         echo "<script>

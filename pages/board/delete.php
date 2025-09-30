@@ -24,6 +24,10 @@ $post = mysqli_fetch_assoc($result);
   <p><strong><?= htmlspecialchars($post['subject']) ?></strong></p>
   <input type="hidden" name="no" value="<?= htmlspecialchars($no) ?>">
   <p>
+    <label for="pw">비밀번호:</label>
+    <input type="password" name="pw" id="pw" required placeholder="삭제하려면 비밀번호 입력">
+  </p>
+  <p>
     <button type="submit" class="btn-confirm">삭제</button>
     <button type="button" class="btn-cancel" onclick="history.back()">취소</button>
   </p>

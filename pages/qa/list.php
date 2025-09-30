@@ -1,4 +1,10 @@
 <?php
+
+if(!isset($_SESSION['user_id'])){
+    echo "<script>alert('로그인이 필요합니다.'); window.location.href='/user/login';</script>";
+    exit;
+}
+
 include $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
 
 $perPage = 10;
@@ -21,11 +27,7 @@ $result = mysqli_query($conn, $sql);
 
 <h1>Q&A 목록</h1>
 
-<?php if(isset($_SESSION['user_id'])): ?>
-    <a href="/qa/write" class="btn write-btn">문의 작성</a>
-<?php else: ?>
-    <p>문의 작성을 위해 <a href="/user/login">로그인</a> 해주세요.</p>
-<?php endif; ?>
+<a href="/qa/write" class="btn write-btn">문의 작성</a>
 
 <div class="qa-list-page">
     <table>
@@ -52,7 +54,7 @@ $result = mysqli_query($conn, $sql);
                 echo "<td>";
                 echo nl2br(htmlspecialchars($row['content']));
 
-                if(isset($_SESSION['user_id']) && $_SESSION['user_id'] === $row['id']){
+                if($_SESSION['user_id'] === $row['id']){
                     echo " <a href='/qa/delete?no=".$row['no']."' class='delete-btn' onclick=\"return confirm('정말 삭제하시겠습니까?');\">[삭제]</a>";
                 }
 
